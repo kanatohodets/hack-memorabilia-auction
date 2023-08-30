@@ -1,0 +1,16 @@
+{
+  "name": "Baseball Stats Generator",
+  "description": "GENERATE _hilarious_ baseball stats",
+  "uid": "silly-stats-service",
+  "scopes": ["crm.objects.custom.read", "crm.objects.custom.write"],
+  "public": false,
+  "extensions": {
+    "crm": {
+      "cards": [
+        {
+          "file": "extensions/example-card.json"
+        }
+      ]
+    }
+  }
+}

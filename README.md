@@ -13,4 +13,4 @@ The HubSpot CLI is configured to pull from the latest release of this project. T
 
 `hs project create`
 
-The CLI should walk you throug the rest of the setup flow.
+The CLI should walk you through the rest of the setup flow.

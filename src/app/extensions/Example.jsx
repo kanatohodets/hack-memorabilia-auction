@@ -25,7 +25,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   // Call serverless function to execute with parameters.
   // The name `myFunc` as per configurations inside `serverless.json`
 
-  const generateStat = () => {
+  const submitBid = () => {
     runServerless({ name: 'statGenerator', propertiesToSend: ['hs_object_id'], parameters: { text: text } }).then((resp) => {
       console.log(resp);
       sendAlert({ message: resp.response })
@@ -34,15 +34,14 @@ const Extension = ({ context, runServerless, sendAlert }) => {
 
   return (
     <>
-    <div>foobar</div>
       <Text>
         <Text format={{ fontWeight: 'bold' }}>
-          Generate a 100% authentic baseball stat
+          Auction off some baseball history!
         </Text>
       </Text>
       <Stack>
-        <Input name="text" label="Send" onInput={(t) => setText(t)} />
-        <Button type="submit" onClick={generateStat}>
+        <Input name="text" label="Bid" onInput={(t) => setText(t)} />
+        <Button type="submit" onClick={submitBid}>
           Click me
         </Button>
       </Stack>

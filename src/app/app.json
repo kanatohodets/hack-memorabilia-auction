@@ -1,7 +1,7 @@
 {
-  "name": "Baseball Stats Generator",
-  "description": "GENERATE _hilarious_ baseball stats",
-  "uid": "silly-stats-service",
+  "name": "Memorabilia Auction",
+  "description": "buy a piece of baseball history",
+  "uid": "authentic-memorabilia-auction",
   "scopes": ["crm.objects.custom.read", "crm.objects.custom.write"],
   "public": false,
   "extensions": {

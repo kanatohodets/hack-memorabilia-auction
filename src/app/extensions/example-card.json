@@ -1,8 +1,8 @@
 {
   "type": "crm-card",
   "data": {
-    "title": "Baseball Stat Generator",
-    "uid": "get_started_card",
+    "title": "Memorabilia Auction Card",
+    "uid": "memorabilia_auction_card",
     "location": "crm.record.tab",
     "module": {
       "file": "Example.jsx"

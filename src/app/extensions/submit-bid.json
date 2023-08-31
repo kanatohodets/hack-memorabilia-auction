@@ -1,0 +1,12 @@
+{
+  "type": "crm-card",
+  "data": {
+    "title": "Memorabilia Bid Card",
+    "uid": "submit_bid_card",
+    "location": "crm.record.tab",
+    "module": {
+      "file": "Example.jsx"
+    },
+    "objectTypes": [{ "name": "p_players" }]
+  }
+}

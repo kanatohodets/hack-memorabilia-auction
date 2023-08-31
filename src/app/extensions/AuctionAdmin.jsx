@@ -20,15 +20,17 @@ hubspot.extend(({ context, runServerlessFunction, actions }) => (
 
 // Define the Extension component, taking in runServerless, context, & sendAlert as props
 const Extension = ({ context, runServerless, sendAlert }) => {
-  const [text, setText] = useState('');
+  const [timeRemaining, setTimeRemaining] = useState(0);
+
 
   // Call serverless function to execute with parameters.
   // The name `myFunc` as per configurations inside `serverless.json`
 
-  const submitBid = () => {
-    runServerless({ name: 'statGenerator', propertiesToSend: ['hs_object_id'], parameters: { text: text } }).then((resp) => {
-      console.log(resp);
+  const getAuctionTime = () => {
+    runServerless({ name: 'auctionTime', propertiesToSend: ['hs_object_id'], parameters: { } }).then((resp) => {
+      console.log({resp});
       sendAlert({ message: resp.response })
+      setTimeRemaining(resp)
     });
   };
 
@@ -37,6 +39,9 @@ const Extension = ({ context, runServerless, sendAlert }) => {
       <Text>
         <Text format={{ fontWeight: 'bold' }}>
           Auction off some baseball history!
+        </Text>
+        <Text format={{ fontWeight: 'bold' }}>
+          Time Remaining: {timeRemaining}
         </Text>
       </Text>
       <Stack>

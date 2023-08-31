@@ -1,0 +1,12 @@
+{
+  "type": "crm-card",
+  "data": {
+    "title": "Auction Configuration",
+    "uid": "auction-configure",
+    "location": "crm.record.tab",
+    "module": {
+      "file": "AuctionConfigure.jsx"
+    },
+    "objectTypes": [{ "name": "p_items" }]
+  }
+}

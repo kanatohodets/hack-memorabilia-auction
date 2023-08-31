@@ -1,28 +1,7 @@
-const hubspot = require("@hubspot/api-client");
-
 exports.main = getRemainingTime = (context = {}, sendResponse) => {
-  const hubspotClient = new hubspot.Client({ accessToken: process.env.PRIVATE_APP_ACCESS_TOKEN });
+  const { end_time } = context.propertiesToSend;
+  const endDate = Date.parse(end_time);
 
-  const { hs_object_id } = context.propertiesToSend;
-
-  const objectType = "Auction";
-  const properties = undefined;
-  const propertiesWithHistory = undefined;
-  const associations = undefined;
-  const archived = false;
-  const idProperty = undefined;
-
-  try {
-    hubspotClient.crm.objects.basicApi.getById(objectType, hs_object_id, properties, propertiesWithHistory, associations, archived, idProperty).then(apiResponse => {
-      console.log(JSON.stringify(apiResponse, null, 2));
-      sendResponse(10000);
-    })
-
-  } catch (e) {
-    e.message === 'HTTP request failed'
-      ? console.error(JSON.stringify(e.response, null, 2))
-      : console.error(e)
-      sendResponse(3000);
-  }
-
+  const diff_seconds = Math.round((endDate - Date.now()) / 1000);
+  sendResponse(diff_seconds > 0 ? diff_seconds : 0);
 };

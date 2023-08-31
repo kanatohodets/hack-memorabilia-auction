@@ -41,7 +41,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   const getAuctionTime = () => {
     runServerless({
       name: "auctionTime",
-      propertiesToSend: ["hs_object_id"],
+      propertiesToSend: ["hs_object_id", "end_time"],
       parameters: {},
     }).then((resp) => {
       console.log(resp);
@@ -56,7 +56,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
           Auction off some baseball history!
         </Text>
         <Text format={{ fontWeight: "bold" }}>
-          Time Remaining: {timeRemaining}
+          Time Remaining: {new Date(timeRemaining * 1000).toISOString().slice(11, 19)}
         </Text>
       </Text>
     </>

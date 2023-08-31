@@ -2,7 +2,11 @@
   "name": "Memorabilia Auction",
   "description": "buy a piece of baseball history",
   "uid": "authentic-memorabilia-auction",
-  "scopes": ["crm.objects.custom.read", "crm.objects.custom.write", "settings.users.read"],
+  "scopes": [
+    "crm.objects.custom.read",
+    "crm.objects.custom.write",
+    "settings.users.read"
+  ],
   "public": false,
   "extensions": {
     "crm": {

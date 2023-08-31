@@ -23,13 +23,16 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   console.log(context.user.id);
   const [bid, sendBid] = useState(0);
 
+  console.log(bid);
+
   // Call serverless function to execute with parameters.
   // The name `myFunc` as per configurations inside `serverless.json`
 
+  // pass in state in properties to send
   const submitBid = () => {
     runServerless({
       name: "submitBid",
-      propertiesToSend: ["state", "hs_object_id"],
+      propertiesToSend: ["start_time", "end_time", "hs_object_id"],
       parameters: { bid: bid, userId: context.user.id },
     }).then((resp) => {
       console.log(resp);

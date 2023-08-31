@@ -1,33 +1,98 @@
 const hubspot = require("@hubspot/api-client");
-const { getRemainingTime } = require("auctionTime.js");
 
 exports.main = async (context = {}, sendResponse) => {
   const PRIVATE_APP_TOKEN = process.env["PRIVATE_APP_ACCESS_TOKEN"];
-  const client = new hubspot.Client({ accessToken: PRIVATE_APP_TOKEN });
+  const hubspotClient = new hubspot.Client({ accessToken: PRIVATE_APP_TOKEN });
 
-  const { hs_object_id } = context.propertiesToSend["hs_object_id"];
-  const { state } = context.propertiesToSend["state"];
+  const { start_time, end_time, hs_object_id } = context.propertiesToSend;
+  const { bid, userId } = context.parameters;
 
-  const { bid } = context.parameters["bid"];
-  const { userId } = context.parameters["userId"];
+  const currentDate = new Date();
+  const timestamp = currentDate.getTime;
 
-  const remainingTime = getRemainingTime(client, hs_object_id);
-  console.log({ remainingTime });
+  console.log({ context });
+  console.log("Test");
+  console.log(bid);
+  console.log(userId);
+  console.log(hs_object_id);
 
-  let foo = await client.crm.objects.basicApi.getPage(
-    "2-16772576",
-    undefined,
-    undefined,
-    ["bats", "throws", "height", "weight", "birthYear", "birthMonth"],
-  );
-  foo.results.map((result) => {
-    console.log(result.properties);
-  });
+  const properties = {
+    bid_id: 21,
+    amount: Number(bid),
+  };
 
-  const ret = `This is coming from a serverless function!`;
+  const SimplePublicObjectInputForCreate = {
+    properties,
+    associations: [
+      {
+        to: { id: userId },
+        types: [
+          { associationCategory: "HUBSPOT_DEFINED", associationTypeId: 118 },
+        ],
+      },
+      {
+        to: { id: hs_object_id },
+        types: [
+          { associationCategory: "HUBSPOT_DEFINED", associationTypeId: 110 },
+        ],
+      },
+      {
+        to: { id: userId },
+        types: [
+          { associationCategory: "HUBSPOT_DEFINED", associationTypeId: 115 },
+        ],
+      },
+      {
+        to: { id: hs_object_id },
+        types: [
+          { associationCategory: "HUBSPOT_DEFINED", associationTypeId: 108 },
+        ],
+      },
+    ],
+  };
+  const objectType = "bids";
   try {
-    sendResponse(ret);
-  } catch (error) {
-    sendResponse(error);
+    const apiResponse = await hubspotClient.crm.objects.basicApi.create(
+      objectType,
+      SimplePublicObjectInputForCreate,
+    );
+    console.log(JSON.stringify(apiResponse, null, 2));
+
+    // const fromObjectType = "bids";
+    // const fromObjectId = apiResponse.properties.hs_object_id;
+    // const toObjectType = "auctions";
+    // const toObjectId = hs_object_id;
+
+    // console.log(fromObjectId);
+    // console.log(fromObjectType);
+    // console.log(toObjectType);
+    // console.log(toObjectId);
+
+    // try {
+    //   const apiResponse =
+    //     await hubspotClient.crm.associations.v4.basicApi.createDefault(
+    //       fromObjectType,
+    //       fromObjectId,
+    //       toObjectType,
+    //       toObjectId,
+    //     );
+    //   console.log(JSON.stringify(apiResponse, null, 118));
+    // } catch (e) {
+    //   e.message === "HTTP request failed"
+    //     ? console.error(JSON.stringify(e.response, null, 118))
+    //     : console.error(e);
+    // }
+
+    const ret = "Submitted bid successfully!";
+
+    try {
+      sendResponse(ret);
+    } catch (error) {
+      sendResponse(error);
+    }
+  } catch (e) {
+    e.message === "HTTP request failed"
+      ? console.error(JSON.stringify(e.response, null, 2))
+      : console.error(e);
   }
 };

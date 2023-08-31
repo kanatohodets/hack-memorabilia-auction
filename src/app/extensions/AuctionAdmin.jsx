@@ -29,8 +29,8 @@ const Extension = ({ context, runServerless, sendAlert }) => {
       runServerless({
         name: "establishPresence",
         propertiesToSend: ["hs_object_id", "presence"],
-        parameters: {"userId": context.user.id},
-      })
+        parameters: { userId: context.user.id },
+      });
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -41,16 +41,16 @@ const Extension = ({ context, runServerless, sendAlert }) => {
       runServerless({
         name: "getPresence",
         propertiesToSend: ["hs_object_id", "presence"],
-        parameters: {"userId": context.user.id},
-      }).then(res => {
-        console.log({res});
-        setPresentUsers(res.response)
-      })
+        parameters: { userId: context.user.id },
+      }).then((res) => {
+        console.log({ res });
+        setPresentUsers(res.response);
+      });
     }, 10000);
     return () => clearInterval(interval);
   }, []);
 
-  console.log({presentUsers})
+  console.log({ presentUsers });
   return (
     <>
       <Text>

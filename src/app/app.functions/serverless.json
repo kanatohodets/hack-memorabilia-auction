@@ -21,6 +21,14 @@
     "submitBid": {
       "file": "submitBid.js",
       "secrets": []
+    },
+    "establishPresence": {
+      "file": "establishPresence.js",
+      "secrets": []
+    },
+    "getPresence": {
+      "file": "getPresence.js",
+      "secrets": []
     }
   }
 }

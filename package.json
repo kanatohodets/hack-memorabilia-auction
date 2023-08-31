@@ -17,8 +17,5 @@
   "bugs": {
     "url": "https://github.com/HubSpot/ui-extensions-react-examples/issues"
   },
-  "homepage": "https://github.com/HubSpot/ui-extensions-react-examples#readme",
-  "dependencies": {
-    "@hubspot/cli": "^5.0.0"
-  }
+  "homepage": "https://github.com/HubSpot/ui-extensions-react-examples#readme"
 }

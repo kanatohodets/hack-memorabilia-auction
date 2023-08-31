@@ -9,6 +9,7 @@ import {
   Stack,
   hubspot,
 } from "@hubspot/ui-extensions";
+import PresentUsers from './PresentUsers';
 
 // Define the extension to be run within the Hubspot CRM
 hubspot.extend(({ context, runServerlessFunction, actions }) => (
@@ -21,36 +22,6 @@ hubspot.extend(({ context, runServerlessFunction, actions }) => (
 
 // Define the Extension component, taking in runServerless, context, & sendAlert as props
 const Extension = ({ context, runServerless, sendAlert }) => {
-  const [presentUsers, setPresentUsers] = useState([]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // establish presence every 5 seconds
-      runServerless({
-        name: "establishPresence",
-        propertiesToSend: ["hs_object_id", "presence"],
-        parameters: {"userId": context.user.id},
-      })
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // get presence every 10 seconds
-      runServerless({
-        name: "getPresence",
-        propertiesToSend: ["hs_object_id", "presence"],
-        parameters: {"userId": context.user.id},
-      }).then(res => {
-        console.log({res});
-        setPresentUsers(res.response)
-      })
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
-  console.log({presentUsers})
   return (
     <>
       <Text>
@@ -58,7 +29,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
           Auction off some baseball history!
         </Text>
         <TimeRemaining runServerless={runServerless} />
-        <Text>Present Users: {presentUsers.join(", ")}</Text>
+        <PresentUsers runServerless={runServerless} context={context}/>
       </Text>
     </>
   );

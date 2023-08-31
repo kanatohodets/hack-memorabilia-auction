@@ -8,26 +8,33 @@ exports.main = establishPresence = (context = {}, sendResponse) => {
   let newPresence = presence;
   if (presence && presence.includes(userId)) {
     // presence record already established. Update timestamp
-    newPresence = presence.replace(new RegExp("userId=" + userId + ",timestamp=[0-9]+"), newRecord);
+    newPresence = presence.replace(
+      new RegExp("userId=" + userId + ",timestamp=[0-9]+"),
+      newRecord,
+    );
   } else {
     newPresence = (presence || "") + "\n" + newRecord;
   }
 
-  const hubspotClient = new hubspot.Client({ accessToken: process.env["PRIVATE_APP_ACCESS_TOKEN"] });
+  const hubspotClient = new hubspot.Client({
+    accessToken: process.env["PRIVATE_APP_ACCESS_TOKEN"],
+  });
 
   const properties = {
-    "presence": newPresence
-
+    presence: newPresence,
   };
   const SimplePublicObjectInput = { properties };
   const objectType = "auctions";
   const objectId = hs_object_id;
   const idProperty = undefined;
 
-  hubspotClient.crm.objects.basicApi.update(objectType, objectId, SimplePublicObjectInput, idProperty).then(res => {
-    sendResponse(res);
-  }).catch(err => {
-    console.error(err);
-    sendResponse(err);
-  });
+  hubspotClient.crm.objects.basicApi
+    .update(objectType, objectId, SimplePublicObjectInput, idProperty)
+    .then((res) => {
+      sendResponse(res);
+    })
+    .catch((err) => {
+      console.error(err);
+      sendResponse(err);
+    });
 };

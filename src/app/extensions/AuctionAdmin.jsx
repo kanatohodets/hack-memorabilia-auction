@@ -58,7 +58,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
           Auction off some baseball history!
         </Text>
         <TimeRemaining runServerless={runServerless} />
-        <Text>Present Users: {presentUsers.join(",")}</Text>
+        <Text>Present Users: {presentUsers.join(", ")}</Text>
       </Text>
     </>
   );

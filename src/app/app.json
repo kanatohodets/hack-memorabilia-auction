@@ -11,7 +11,7 @@
           "file": "extensions/example-card.json"
         },
         {
-          "file:": "extensions/submit-bid.json"
+          "file": "extensions/submit-bid.json"
         }
       ]
     }

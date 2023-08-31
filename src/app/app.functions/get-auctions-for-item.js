@@ -21,7 +21,7 @@ exports.main = async (context = {}, sendResponse) => {
       limit,
     );
   const batch = {
-    properties: ["id", "name", "state"],
+    properties: ["id", "name", "state", "end_time", "start_time"],
     inputs: associationsFetch.results.map((r) => {
       return { id: r.id };
     }),
@@ -31,6 +31,8 @@ exports.main = async (context = {}, sendResponse) => {
     "p_auctions",
     batch,
   );
+
+  console.log(auctionsFetch.results);
 
   try {
     sendResponse(auctionsFetch.results);

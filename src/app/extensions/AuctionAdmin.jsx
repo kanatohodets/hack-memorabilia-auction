@@ -44,7 +44,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
       propertiesToSend: ["hs_object_id"],
       parameters: {},
     }).then((resp) => {
-      console.log(resp);
+      console.log({resp});
       setTimeRemaining(resp.response);
     });
   };

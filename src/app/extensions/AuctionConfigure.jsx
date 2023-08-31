@@ -23,14 +23,18 @@ hubspot.extend(({ context, runServerlessFunction, actions }) => (
 // Define the Extension component, taking in runServerless, context, & sendAlert as props
 const Extension = ({ context, runServerless, sendAlert }) => {
   const [minBids, setMinBids] = useState(0);
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
 
   // Call serverless function to execute with parameters.
   // The name `myFunc` as per configurations inside `serverless.json`
 
   const createAuction = () => {
-    runServerless({ name: 'auction-configure', propertiesToSend: ['hs_object_id'], parameters: { minBids: minBids, startTime: startTime, endTime: endTime } }).then((resp) => {
+    runServerless({
+      name: "auction-configure",
+      propertiesToSend: ["hs_object_id"],
+      parameters: { minBids: minBids, startTime: startTime, endTime: endTime },
+    }).then((resp) => {
       console.log(resp);
       sendAlert({ message: resp.response });
     });
@@ -50,7 +54,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
           description="Auction Start Time"
           onInput={(t) => {
             console.log("START TIME", t);
-            setStartTime(t)
+            setStartTime(t);
           }}
         />
 

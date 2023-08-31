@@ -27,7 +27,11 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   // The name `myFunc` as per configurations inside `serverless.json`
 
   const submitBid = () => {
-    runServerless({ name: 'submitBid', propertiesToSend: ['state', 'hs_object_id'], parameters: { bid: bid, userId: context.user.id } }).then((resp) => {
+    runServerless({
+      name: "submitBid",
+      propertiesToSend: ["state", "hs_object_id"],
+      parameters: { bid: bid, userId: context.user.id },
+    }).then((resp) => {
       console.log(resp);
       sendAlert({ message: resp.response });
     });
@@ -36,7 +40,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   return (
     <>
       <Text>
-        <Text format={{ fontWeight: 'bold' }}>
+        <Text format={{ fontWeight: "bold" }}>
           Enter your highest current bid for this item.
         </Text>
       </Text>

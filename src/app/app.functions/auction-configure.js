@@ -1,7 +1,7 @@
-const hubspot = require('@hubspot/api-client')
+const hubspot = require("@hubspot/api-client");
 
 exports.main = async (context = {}, sendResponse) => {
-  console.log('wharblgarbl', context);
+  console.log("wharblgarbl", context);
   const ret = `This is coming from a serverless function!`;
   try {
     sendResponse(ret);
@@ -9,4 +9,3 @@ exports.main = async (context = {}, sendResponse) => {
     sendResponse(error);
   }
 };
-

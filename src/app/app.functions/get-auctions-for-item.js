@@ -1,7 +1,7 @@
-const hubspot = require('@hubspot/api-client')
+const hubspot = require("@hubspot/api-client");
 
 exports.main = async (context = {}, sendResponse) => {
-  console.log('get auctions for item', context);
+  console.log("get auctions for item", context);
   const ret = `get auctions for item`;
   try {
     sendResponse(ret);
@@ -9,4 +9,3 @@ exports.main = async (context = {}, sendResponse) => {
     sendResponse(error);
   }
 };
-

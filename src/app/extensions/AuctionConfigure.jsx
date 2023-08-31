@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Divider,
   Link,
@@ -20,14 +20,23 @@ hubspot.extend(({ context, runServerlessFunction, actions }) => (
   />
 ));
 
+let init = false;
+
 // Define the Extension component, taking in runServerless, context, & sendAlert as props
 const Extension = ({ context, runServerless, sendAlert }) => {
   const [minBids, setMinBids] = useState(0);
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [auctions, setAuctions] = useState([]);
 
-  // Call serverless function to execute with parameters.
-  // The name `myFunc` as per configurations inside `serverless.json`
+  useEffect(() => {
+    if (!init) {
+      runServerless({ name: 'get-auctions-for-item', propertiesToSend: ['hs_object_id'], parameters: {} }).then((res) => {
+        setAuctions(res.response.map((r) => { return { id: r.id, name: r.properties.name }}));
+      });
+      init = true;
+    }
+  }, [])
 
   const createAuction = () => {
     runServerless({
@@ -42,11 +51,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
 
   return (
     <>
-      <Text>
-        <Text format={{ fontWeight: "bold" }}>
-          Create an auction for this item
-        </Text>
-      </Text>
+    { auctions.length == 0 ?
       <Stack>
         <DateInput
           name="start-time"
@@ -77,6 +82,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
           Create new Auction
         </Button>
       </Stack>
+    : <Text> WHAT This item already has an active auction: {JSON.stringify(auctions)} </Text> }
     </>
   );
 };

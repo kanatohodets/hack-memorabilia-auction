@@ -8,7 +8,7 @@
     "crm": {
       "cards": [
         {
-          "file": "extensions/example-card.json"
+          "file": "extensions/auction-admin.json"
         },
         {
           "file": "extensions/auction-configure.json"
@@ -16,7 +16,6 @@
         {
           "file": "extensions/bid-submit.json"
         }
-
       ]
     }
   }

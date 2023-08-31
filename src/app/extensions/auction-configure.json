@@ -1,7 +1,7 @@
 {
   "type": "crm-card",
   "data": {
-    "title": "Auction Configuration",
+    "title": "Create an Auction for this Item",
     "uid": "auction-configure",
     "location": "crm.record.tab",
     "module": {

@@ -9,6 +9,18 @@
     "auctionTime": {
       "file": "auctionTime.js",
       "secrets": []
+    },
+    "auction-configure": {
+      "file": "auction-configure.js",
+      "secrets": []
+    },
+    "get-auctions-for-item": {
+      "file": "get-auctions-for-item.js",
+      "secrets": []
+    },
+    "submitBid": {
+      "file": "submitBid.js",
+      "secrets": []
     }
   }
 }

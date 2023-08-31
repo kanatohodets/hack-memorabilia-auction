@@ -20,17 +20,14 @@ hubspot.extend(({ context, runServerlessFunction, actions }) => (
 
 // Define the Extension component, taking in runServerless, context, & sendAlert as props
 const Extension = ({ context, runServerless, sendAlert }) => {
-  const [text, setText] = useState("");
+  console.log(context.user.id);
+  const [bid, sendBid] = useState(0);
 
   // Call serverless function to execute with parameters.
   // The name `myFunc` as per configurations inside `serverless.json`
 
   const submitBid = () => {
-    runServerless({
-      name: "statGenerator",
-      propertiesToSend: ["hs_object_id"],
-      parameters: { text: text },
-    }).then((resp) => {
+    runServerless({ name: 'submitBid', propertiesToSend: ['state', 'hs_object_id'], parameters: { bid: bid, userId: context.user.id } }).then((resp) => {
       console.log(resp);
       sendAlert({ message: resp.response });
     });
@@ -39,14 +36,14 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   return (
     <>
       <Text>
-        <Text format={{ fontWeight: "bold" }}>
-          Create an auction for this item
+        <Text format={{ fontWeight: 'bold' }}>
+          Enter your highest current bid for this item.
         </Text>
       </Text>
       <Stack>
-        <Input name="text" label="Bid" onInput={(t) => setText(t)} />
+        <Input name="text" label="Bid" onInput={(t) => sendBid(t)} />
         <Button type="submit" onClick={submitBid}>
-          Click me
+          Submit
         </Button>
       </Stack>
     </>

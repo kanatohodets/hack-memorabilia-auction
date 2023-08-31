@@ -1,4 +1,4 @@
-const hubspot = require('@hubspot/api-client')
+const hubspot = require("@hubspot/api-client");
 
 // get all auctions associated with this item, return them
 exports.main = async (context = {}, sendResponse) => {
@@ -24,4 +24,3 @@ exports.main = async (context = {}, sendResponse) => {
     sendResponse(error);
   }
 };
-

@@ -7,6 +7,6 @@
     "module": {
       "file": "BidSubmit.jsx"
     },
-    "objectTypes": [{ "name": "p_auction" }]
+    "objectTypes": [{ "name": "p_auctions" }]
   }
 }

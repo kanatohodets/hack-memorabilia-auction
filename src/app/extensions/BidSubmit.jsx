@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Divider,
   Link,
@@ -7,7 +7,7 @@ import {
   Input,
   Stack,
   hubspot,
-} from '@hubspot/ui-extensions';
+} from "@hubspot/ui-extensions";
 
 // Define the extension to be run within the Hubspot CRM
 hubspot.extend(({ context, runServerlessFunction, actions }) => (
@@ -20,22 +20,26 @@ hubspot.extend(({ context, runServerlessFunction, actions }) => (
 
 // Define the Extension component, taking in runServerless, context, & sendAlert as props
 const Extension = ({ context, runServerless, sendAlert }) => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   // Call serverless function to execute with parameters.
   // The name `myFunc` as per configurations inside `serverless.json`
 
   const submitBid = () => {
-    runServerless({ name: 'statGenerator', propertiesToSend: ['hs_object_id'], parameters: { text: text } }).then((resp) => {
+    runServerless({
+      name: "statGenerator",
+      propertiesToSend: ["hs_object_id"],
+      parameters: { text: text },
+    }).then((resp) => {
       console.log(resp);
-      sendAlert({ message: resp.response })
+      sendAlert({ message: resp.response });
     });
   };
 
   return (
     <>
       <Text>
-        <Text format={{ fontWeight: 'bold' }}>
+        <Text format={{ fontWeight: "bold" }}>
           Create an auction for this item
         </Text>
       </Text>

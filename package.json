@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/HubSpot/ui-extensions-react-examples/issues"
   },
-  "homepage": "https://github.com/HubSpot/ui-extensions-react-examples#readme"
+  "homepage": "https://github.com/HubSpot/ui-extensions-react-examples#readme",
+  "devDependencies": {
+    "prettier": "3.0.3"
+  }
 }

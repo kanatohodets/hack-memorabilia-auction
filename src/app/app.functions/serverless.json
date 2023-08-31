@@ -5,6 +5,10 @@
     "statGenerator": {
       "file": "statGenerator.js",
       "secrets": []
+    },
+    "auctionTime": {
+      "file": "auctionTime.js",
+      "secrets": []
     }
   }
 }

@@ -13,7 +13,7 @@ const PresentUsers = ({ context, runServerless }) => {
     }).then((res) => {
       setPresentUsers(res.response);
     });
-  }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,9 +37,7 @@ const PresentUsers = ({ context, runServerless }) => {
     getPresence();
   }, []);
 
-  return (
-      <Text>Present Users: {presentUsers.join(", ")}</Text>
-  );
+  return <Text>Present Users: {presentUsers.join(", ")}</Text>;
 };
 
 export default PresentUsers;

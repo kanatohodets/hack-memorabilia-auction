@@ -9,7 +9,7 @@ import {
   Stack,
   hubspot,
 } from "@hubspot/ui-extensions";
-import PresentUsers from './PresentUsers';
+import PresentUsers from "./PresentUsers";
 
 // Define the extension to be run within the Hubspot CRM
 hubspot.extend(({ context, runServerlessFunction, actions }) => (
@@ -29,7 +29,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
           Auction off some baseball history!
         </Text>
         <TimeRemaining runServerless={runServerless} />
-        <PresentUsers runServerless={runServerless} context={context}/>
+        <PresentUsers runServerless={runServerless} context={context} />
       </Text>
     </>
   );

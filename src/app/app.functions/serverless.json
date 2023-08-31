@@ -13,6 +13,10 @@
     "get-auctions-for-item": {
       "file": "get-auctions-for-item.js",
       "secrets": []
+    },
+    "submitBid": {
+      "file": "submitBid.js",
+      "secrets": []
     }
   }
 }

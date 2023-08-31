@@ -6,6 +6,10 @@
       "file": "statGenerator.js",
       "secrets": []
     },
+    "auctionTime": {
+      "file": "auctionTime.js",
+      "secrets": []
+    },
     "auction-configure": {
       "file": "auction-configure.js",
       "secrets": []

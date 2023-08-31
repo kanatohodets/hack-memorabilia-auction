@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Divider,
   Link,
@@ -7,7 +7,7 @@ import {
   Input,
   Stack,
   hubspot,
-} from '@hubspot/ui-extensions';
+} from "@hubspot/ui-extensions";
 
 // Define the extension to be run within the Hubspot CRM
 hubspot.extend(({ context, runServerlessFunction, actions }) => (
@@ -29,7 +29,7 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   const submitBid = () => {
     runServerless({ name: 'submitBid', propertiesToSend: ['state', 'hs_object_id'], parameters: { bid: bid, userId: context.user.id } }).then((resp) => {
       console.log(resp);
-      sendAlert({ message: resp.response })
+      sendAlert({ message: resp.response });
     });
   };
 

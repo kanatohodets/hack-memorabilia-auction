@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Divider,
   Link,
@@ -7,7 +7,7 @@ import {
   Input,
   Stack,
   hubspot,
-} from '@hubspot/ui-extensions';
+} from "@hubspot/ui-extensions";
 
 // Define the extension to be run within the Hubspot CRM
 hubspot.extend(({ context, runServerlessFunction, actions }) => (
@@ -22,34 +22,43 @@ hubspot.extend(({ context, runServerlessFunction, actions }) => (
 const Extension = ({ context, runServerless, sendAlert }) => {
   const [timeRemaining, setTimeRemaining] = useState(0);
 
+  useEffect(() => {
+    getAuctionTime();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (timeRemaining > 0) {
+        setTimeRemaining((timeRemaining) => timeRemaining - 1);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timeRemaining]);
 
   // Call serverless function to execute with parameters.
   // The name `myFunc` as per configurations inside `serverless.json`
 
   const getAuctionTime = () => {
-    runServerless({ name: 'auctionTime', propertiesToSend: ['hs_object_id'], parameters: { } }).then((resp) => {
-      console.log({resp});
-      sendAlert({ message: resp.response })
-      setTimeRemaining(resp)
+    runServerless({
+      name: "auctionTime",
+      propertiesToSend: ["hs_object_id"],
+      parameters: {},
+    }).then((resp) => {
+      console.log(resp);
+      setTimeRemaining(resp.response);
     });
   };
 
   return (
     <>
       <Text>
-        <Text format={{ fontWeight: 'bold' }}>
+        <Text format={{ fontWeight: "bold" }}>
           Auction off some baseball history!
         </Text>
-        <Text format={{ fontWeight: 'bold' }}>
+        <Text format={{ fontWeight: "bold" }}>
           Time Remaining: {timeRemaining}
         </Text>
       </Text>
-      <Stack>
-        <Input name="text" label="Bid" onInput={(t) => setText(t)} />
-        <Button type="submit" onClick={submitBid}>
-          Click me
-        </Button>
-      </Stack>
     </>
   );
 };

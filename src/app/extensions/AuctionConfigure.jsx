@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Divider,
   Link,
@@ -9,7 +9,7 @@ import {
   DateInput,
   NumberInput,
   hubspot,
-} from '@hubspot/ui-extensions';
+} from "@hubspot/ui-extensions";
 
 // Define the extension to be run within the Hubspot CRM
 hubspot.extend(({ context, runServerlessFunction, actions }) => (
@@ -32,14 +32,14 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   const createAuction = () => {
     runServerless({ name: 'auction-configure', propertiesToSend: ['hs_object_id'], parameters: { minBids: minBids, startTime: startTime, endTime: endTime } }).then((resp) => {
       console.log(resp);
-      sendAlert({ message: resp.response })
+      sendAlert({ message: resp.response });
     });
   };
 
   return (
     <>
       <Text>
-        <Text format={{ fontWeight: 'bold' }}>
+        <Text format={{ fontWeight: "bold" }}>
           Create an auction for this item
         </Text>
       </Text>

@@ -7,6 +7,6 @@
     "module": {
       "file": "AuctionAdmin.jsx"
     },
-    "objectTypes": [{ "name": "p_item" }]
+    "objectTypes": [{ "name": "p_auction" }]
   }
 }

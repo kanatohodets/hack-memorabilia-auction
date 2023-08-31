@@ -1,0 +1,12 @@
+{
+  "type": "crm-card",
+  "data": {
+    "title": "Submit a bid on an auction",
+    "uid": "bid-submit",
+    "location": "crm.record.tab",
+    "module": {
+      "file": "BidSubmit.jsx"
+    },
+    "objectTypes": [{ "name": "p_auction" }]
+  }
+}

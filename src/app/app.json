@@ -12,7 +12,11 @@
         },
         {
           "file": "extensions/auction-configure.json"
+        },
+        {
+          "file": "extensions/bid-submit.json"
         }
+
       ]
     }
   }

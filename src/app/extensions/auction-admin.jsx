@@ -5,8 +5,8 @@
     "uid": "memorabilia_auction_card",
     "location": "crm.record.tab",
     "module": {
-      "file": "Example.jsx"
+      "file": "AuctionAdmin.jsx"
     },
-    "objectTypes": [{ "name": "p_players" }]
+    "objectTypes": [{ "name": "p_item" }]
   }
 }

@@ -22,6 +22,10 @@
       "file": "submitBid.js",
       "secrets": []
     },
+    "getMaxBid": {
+      "file": "getMaxBid.js",
+      "secrets": []
+    },
     "establishPresence": {
       "file": "establishPresence.js",
       "secrets": []

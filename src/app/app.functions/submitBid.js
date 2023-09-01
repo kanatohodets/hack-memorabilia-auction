@@ -17,7 +17,6 @@ exports.main = async (context = {}, sendResponse) => {
   console.log(hs_object_id);
 
   const properties = {
-    bid_id: 21,
     amount: Number(bid),
   };
 
@@ -58,30 +57,30 @@ exports.main = async (context = {}, sendResponse) => {
     );
     console.log(JSON.stringify(apiResponse, null, 2));
 
-    // const fromObjectType = "bids";
-    // const fromObjectId = apiResponse.properties.hs_object_id;
-    // const toObjectType = "auctions";
-    // const toObjectId = hs_object_id;
+    const fromObjectType = "bids";
+    const fromObjectId = apiResponse.properties.hs_object_id;
+    const toObjectType = "auctions";
+    const toObjectId = hs_object_id;
 
-    // console.log(fromObjectId);
-    // console.log(fromObjectType);
-    // console.log(toObjectType);
-    // console.log(toObjectId);
+    console.log(fromObjectId);
+    console.log(fromObjectType);
+    console.log(toObjectType);
+    console.log(toObjectId);
 
-    // try {
-    //   const apiResponse =
-    //     await hubspotClient.crm.associations.v4.basicApi.createDefault(
-    //       fromObjectType,
-    //       fromObjectId,
-    //       toObjectType,
-    //       toObjectId,
-    //     );
-    //   console.log(JSON.stringify(apiResponse, null, 118));
-    // } catch (e) {
-    //   e.message === "HTTP request failed"
-    //     ? console.error(JSON.stringify(e.response, null, 118))
-    //     : console.error(e);
-    // }
+    try {
+      const apiResponse =
+        await hubspotClient.crm.associations.v4.basicApi.createDefault(
+          fromObjectType,
+          fromObjectId,
+          toObjectType,
+          toObjectId,
+        );
+      console.log(JSON.stringify(apiResponse, null, 118));
+    } catch (e) {
+      e.message === "HTTP request failed"
+        ? console.error(JSON.stringify(e.response, null, 118))
+        : console.error(e);
+    }
 
     const ret = "Submitted bid successfully!";
 

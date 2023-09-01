@@ -27,7 +27,8 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   const [loading, setLoading] = useState(true);
   const [activeAuctions, setActiveAuctions] = useState([]);
 
-  const [minBids, setMinBids] = useState(0);
+  const [minBids, setMinBids] = useState(1);
+  const [saleMinimum, setSaleMinimum] = useState(1);
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -65,22 +66,13 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   }, [loading]);
 
   const createAuction = () => {
-    let start = {
-      date: startDate,
-      hour: startHour,
-      min: startMin,
-    };
-
-    let end = {
-      date: endDate,
-      hour: endHour,
-      min: endMin,
-    };
+    let start = formatDate(startDate, startHour, startMin);
+    let end = formatDate(endDate, endHour, endMin);
 
     runServerless({
       name: "auction-configure",
-      propertiesToSend: ["hs_object_id"],
-      parameters: { minBids: minBids, start: start, end: end },
+      propertiesToSend: ["hs_object_id", "name"],
+      parameters: { minBids: minBids, saleMinimum: saleMinimum, start: start, end: end },
     }).then((resp) => {
       console.log(resp);
       sendAlert({ message: resp.response });
@@ -172,6 +164,14 @@ const Extension = ({ context, runServerless, sendAlert }) => {
           onChange={(t) => setMinBids(t)}
         />
 
+        <NumberInput
+          name="min-sale-price"
+          label="Minimum sale price"
+          description="Minimum acceptable sale price ($)"
+          value={saleMinimum}
+          onChange={(t) => setSaleMinimum(t)}
+        />
+
         <Button type="submit" onClick={createAuction}>
           Create new Auction
         </Button>
@@ -181,3 +181,14 @@ const Extension = ({ context, runServerless, sendAlert }) => {
 
   return <>{loading ? load() : create()}</>;
 };
+
+function formatDate(date, hour, min) {
+  let d = new Date();
+  d.setYear(date.year);
+  d.setMonth(date.month);
+  d.setDate(date.date);
+  d.setHours(hour);
+  d.setMinutes(min);
+
+  return d.toUTCString();
+}

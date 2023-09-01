@@ -7,6 +7,12 @@ exports.main = async (context = {}, sendResponse) => {
   const { start_time, end_time, hs_object_id } = context.propertiesToSend;
   const { bid, userId } = context.parameters;
 
+  console.log({ context });
+  console.log("Test");
+  console.log(bid);
+  console.log(userId);
+  console.log(hs_object_id);
+
 const objectType = "auctions";
 const objectId = hs_object_id;
 const toObjectType = "p_bids";

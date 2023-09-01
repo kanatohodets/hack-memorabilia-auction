@@ -27,10 +27,14 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   const [loading, setLoading] = useState(true);
   const [activeAuctions, setActiveAuctions] = useState([]);
 
-  const [minBids, setMinBids] = useState(0);
+  const [minBids, setMinBids] = useState(1);
+  const [saleMinimum, setSaleMinimum] = useState(1);
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+
+  const [startValid, setStartValid] = useState(true);
+  const [endValid, setEndValid] = useState(true);
 
   const [startHour, setStartHour] = useState(0);
   const [startMin, setStartMin] = useState(0);
@@ -65,25 +69,36 @@ const Extension = ({ context, runServerless, sendAlert }) => {
   }, [loading]);
 
   const createAuction = () => {
-    let start = {
-      date: startDate,
-      hour: startHour,
-      min: startMin,
-    };
+    let start = formatDate(startDate, startHour, startMin);
+    let end = formatDate(endDate, endHour, endMin);
+    if (start == "Invalid Date") {
+      setStartValid(false);
+      sendAlert({ message: "start date invalid, fix it" });
+      return;
+    }
 
-    let end = {
-      date: endDate,
-      hour: endHour,
-      min: endMin,
-    };
+    if (end == "Invalid Date") {
+      setEndValid(false);
+      sendAlert({ message: "end date invalid, fix it" });
+      return;
+    }
+
+    setStartValid(true);
+    setEndValid(true);
 
     runServerless({
       name: "auction-configure",
-      propertiesToSend: ["hs_object_id"],
-      parameters: { minBids: minBids, start: start, end: end },
+      propertiesToSend: ["hs_object_id", "name"],
+      parameters: {
+        minBids: minBids,
+        saleMinimum: saleMinimum,
+        start: start,
+        end: end,
+        creatorUserId: context.user.id,
+      },
     }).then((resp) => {
       console.log(resp);
-      sendAlert({ message: resp.response });
+      sendAlert({ message: "created " + resp.response.properties.name });
     });
   };
 
@@ -106,8 +121,10 @@ const Extension = ({ context, runServerless, sendAlert }) => {
         <Flex direction={"row"} justify={"start"}>
           <Tile>
             <DateInput
+              required="true"
               name="start-date"
               label="Start date"
+              error={!startValid}
               onChange={(t) => setStartDate(t)}
             />
           </Tile>
@@ -137,8 +154,10 @@ const Extension = ({ context, runServerless, sendAlert }) => {
         <Flex direction={"row"} justify={"start"}>
           <Tile>
             <DateInput
+              required="true"
               name="end-time"
               label="End date"
+              error={!endValid}
               onChange={(t) => setEndDate(t)}
             />
           </Tile>
@@ -172,6 +191,14 @@ const Extension = ({ context, runServerless, sendAlert }) => {
           onChange={(t) => setMinBids(t)}
         />
 
+        <NumberInput
+          name="min-sale-price"
+          label="Minimum sale price"
+          description="Minimum acceptable sale price ($)"
+          value={saleMinimum}
+          onChange={(t) => setSaleMinimum(t)}
+        />
+
         <Button type="submit" onClick={createAuction}>
           Create new Auction
         </Button>
@@ -181,3 +208,14 @@ const Extension = ({ context, runServerless, sendAlert }) => {
 
   return <>{loading ? load() : create()}</>;
 };
+
+function formatDate(date, hour, min) {
+  let d = new Date();
+  d.setYear(date.year);
+  d.setMonth(date.month);
+  d.setDate(date.date);
+  d.setHours(hour);
+  d.setMinutes(min);
+
+  return d.toUTCString();
+}

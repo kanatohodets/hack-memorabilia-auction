@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Text } from "@hubspot/ui-extensions";
 
-const TimeRemaining = ({ runServerless }) => {
+const TimeRemaining = ({ runServerless, fetchProperties }) => {
   const [timeRemaining, setTimeRemaining] = useState(0);
 
   useEffect(() => {
-    getAuctionTime();
+    fetchProperties(["end_time"]).then(props => {
+      const end_time = props.end_time;
+      const diff_seconds = Math.round((Number(end_time) - Date.now()) / 1000);
+      setTimeRemaining(diff_seconds > 0 ? diff_seconds : 0)
+    });
   }, []);
 
   useEffect(() => {

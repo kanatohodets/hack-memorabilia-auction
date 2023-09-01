@@ -30,6 +30,7 @@ exports.main = async (context = {}, sendResponse) => {
     minimum_required_bids: context.parameters.minBids,
     sale_minimum: context.parameters.saleMinimum,
     hubspot_owner_id: ownerApiResponse.id,
+    presence: "test post please ignore"
   };
 
   console.dir(context);

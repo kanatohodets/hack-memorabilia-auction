@@ -5,7 +5,6 @@ const objectType = "p_bids";
 
 const properties = {
   amount: "20543",
-  bid_id: "9999",
 };
 
 const associations = [];

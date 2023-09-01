@@ -7,7 +7,7 @@ exports.main = async (context = {}, sendResponse) => {
   const { start_time, end_time, hs_object_id } = context.propertiesToSend;
   const { bid, userId } = context.parameters;
 
-const objectType = "2-18114550";
+const objectType = "auctions";
 const objectId = hs_object_id;
 const toObjectType = "p_bids";
 const after = undefined;
@@ -27,17 +27,8 @@ const batch = {
   }),
 };
 
-const res = await hubspotClient.crm.objects.batchApi.read("p_auctions", batch);
+const res = await hubspotClient.crm.objects.batchApi.read("p_bids", batch);
+console.log("Get max bid function");
 console.log(JSON.stringify(res));
 
-    try {
-      sendResponse(ret);
-    } catch (error) {
-      sendResponse(error);
-    }
-  } catch (e) {
-    e.message === "HTTP request failed"
-      ? console.error(JSON.stringify(e.response, null, 2))
-      : console.error(e);
-  }
 };

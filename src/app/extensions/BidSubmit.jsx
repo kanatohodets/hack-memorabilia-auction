@@ -25,6 +25,21 @@ const Extension = ({ context, runServerless, sendAlert }) => {
 
   console.log(bid);
 
+  // pass in state in properties to send
+  const getMaxBid = () => {
+    runServerless({
+      name: "getMaxBid",
+      propertiesToSend: ["start_time", "end_time", "hs_object_id"],
+      parameters: { bid: bid, userId: context.user.id },
+    }).then((resp) => {
+      console.log(resp);
+      sendAlert({ message: resp.response });
+    });
+  };
+
+  console.log("Response");
+  console.dir(getMaxBid);
+
   // Call serverless function to execute with parameters.
   // The name `myFunc` as per configurations inside `serverless.json`
 

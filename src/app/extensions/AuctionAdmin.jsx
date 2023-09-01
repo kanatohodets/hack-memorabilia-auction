@@ -17,18 +17,19 @@ hubspot.extend(({ context, runServerlessFunction, actions }) => (
     context={context}
     runServerless={runServerlessFunction}
     sendAlert={actions.addAlert}
+    fetchProperties={actions.fetchCrmObjectProperties}
   />
 ));
 
 // Define the Extension component, taking in runServerless, context, & sendAlert as props
-const Extension = ({ context, runServerless, sendAlert }) => {
+const Extension = ({ context, runServerless, sendAlert, fetchProperties }) => {
   return (
     <>
       <Text>
         <Text format={{ fontWeight: "bold" }}>
           Auction off some baseball history!
         </Text>
-        <TimeRemaining runServerless={runServerless} />
+        <TimeRemaining runServerless={runServerless} fetchProperties={fetchProperties} />
         <PresentUsers runServerless={runServerless} context={context} />
       </Text>
     </>

@@ -17,70 +17,62 @@ exports.main = async (context = {}, sendResponse) => {
   console.log(hs_object_id);
 
   const properties = {
-    amount: Number(bid),
+    amount: bid,
   };
 
+  const associations = [
+    {
+      to: { id: "8467752480"},
+      types: [
+        {
+          associationCategory: "USER_DEFINED",
+          // 112 is the value for the 'item being auctioned' label when read FROM
+          // auctions TO items.
+          associationTypeId: "148",
+        },
+      ],
+    },
+  ];
+
   const SimplePublicObjectInputForCreate = {
-    properties,
-    associations: [
-      {
-        to: { id: userId },
-        types: [
-          { associationCategory: "HUBSPOT_DEFINED", associationTypeId: 118 },
-        ],
-      },
-      {
-        to: { id: hs_object_id },
-        types: [
-          { associationCategory: "HUBSPOT_DEFINED", associationTypeId: 110 },
-        ],
-      },
-      {
-        to: { id: userId },
-        types: [
-          { associationCategory: "HUBSPOT_DEFINED", associationTypeId: 115 },
-        ],
-      },
-      {
-        to: { id: hs_object_id },
-        types: [
-          { associationCategory: "HUBSPOT_DEFINED", associationTypeId: 108 },
-        ],
-      },
-    ],
+    properties: properties,
+    associations: associations
   };
-  const objectType = "bids";
+  const objectType = "p_bids";
   try {
     const apiResponse = await hubspotClient.crm.objects.basicApi.create(
       objectType,
-      SimplePublicObjectInputForCreate,
+      {
+        properties: properties,
+        associations: associations
+      },
     );
-    console.log(JSON.stringify(apiResponse, null, 2));
+    console.dir(apiResponse);
 
-    const fromObjectType = "bids";
-    const fromObjectId = apiResponse.properties.hs_object_id;
-    const toObjectType = "auctions";
-    const toObjectId = hs_object_id;
+    // const fromObjectType = "bids";
+    // const fromObjectId = apiResponse.properties.hs_object_id;
+    // const toObjectType = "auctions";
+    // const toObjectId = hs_object_id;
 
-    console.log(fromObjectId);
-    console.log(fromObjectType);
-    console.log(toObjectType);
-    console.log(toObjectId);
+    // console.log(fromObjectId);
+    // console.log(fromObjectType);
+    // console.log(toObjectType);
+    // console.log(toObjectId);
 
-    try {
-      const apiResponse =
-        await hubspotClient.crm.associations.v4.basicApi.createDefault(
-          fromObjectType,
-          fromObjectId,
-          toObjectType,
-          toObjectId,
-        );
-      console.log(JSON.stringify(apiResponse, null, 118));
-    } catch (e) {
-      e.message === "HTTP request failed"
-        ? console.error(JSON.stringify(e.response, null, 118))
-        : console.error(e);
-    }
+    // try {
+    //   const apiResponse =
+    //     await hubspotClient.crm.associations.v4.basicApi.createDefault(
+    //       fromObjectType,
+    //       fromObjectId,
+    //       toObjectType,
+    //       toObjectId,
+    //     );
+    //   console.log(JSON.stringify(apiResponse, null, 118));
+    // } catch (e) {
+    //   e.message === "HTTP request failed"
+    //     ? console.error(JSON.stringify(e.response, null, 118))
+    //     : console.error(e);
+    // }
 
     const ret = "Submitted bid successfully!";
 
